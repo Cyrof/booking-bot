@@ -8,25 +8,32 @@ import os
 
 class File():
     def __init__(self):
-        self.__wfile = open('./Users/secrets.pkl', 'wb')
-        self.__rfile = open('./Users/secrets.pkl', 'rb')
+        # self.__wfile = open('./Users/secrets.pkl', 'wb+')
+        # self.__rfile = open('./Users/secrets.pkl', 'rb+')
+        pass
 
     # write data into secret file
     def write_dict(self, data):
-        # json_string = json.dumps(data)
-        # json.dump(json_string, self.__wfile)
-        # self.__wfile.close()
-        # self.__wfile.write(str(data))
-        # self.__wfile.close()
-        pickle.dump(data, self.__wfile)
-        self.__wfile.close()
+        with open('./Users/secrets.pkl', 'wb') as f:
+            pickle.dump(data, f)
+            f.close()
 
     # read data from secret file
 
     def read(self):
-        data = pickle.load(self.__rfile)
-        self.__rfile.close()
-        return data
+        with open('./Users/secrets.pkl', 'rb') as f:
+            data = pickle.load(f)
+            f.close()
+            return data
+    
+    # check file
+    def check(self):
+        return (os.stat('./Users/secrets.pkl').st_size == 0)
+    
+    # # close open files
+    # def close(self):
+    #     self.__rfile.close()
+    #     self.__wfile.close()
 
 # user class to contain and store user data
 
@@ -70,10 +77,12 @@ class User(File):
 
 
 if __name__ == "__main__":
-    user = User('cyrof', '12345')
-    user_dict = {"user": user}
-    file = File()
+    # user = User('cyrof', '12345')
+    # user_dict = {"user": user}
+    # file = File()
 
-    file.write_dict(user_dict)
-    data = file.read()
-    print(data)
+    # file.write_dict(user_dict)
+    # data = file.read()
+    # print(data)
+    f = File()
+    print(f.check())
