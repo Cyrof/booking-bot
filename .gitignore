@@ -133,3 +133,6 @@ dist
 bot/
 venv
 
+# files to ignore
+git.py
+
