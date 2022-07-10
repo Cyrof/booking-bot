@@ -1,8 +1,7 @@
 # import libraries
 import base64
-import json
-import ast
 import pickle
+import os
 
 # file class to create and store user obj into a secret json file
 
@@ -20,11 +19,13 @@ class File():
         # self.__wfile.write(str(data))
         # self.__wfile.close()
         pickle.dump(data, self.__wfile)
+        self.__wfile.close()
 
     # read data from secret file
 
     def read(self):
         data = pickle.load(self.__rfile)
+        self.__rfile.close()
         return data
 
 # user class to contain and store user data
@@ -72,10 +73,7 @@ if __name__ == "__main__":
     user = User('cyrof', '12345')
     user_dict = {"user": user}
     file = File()
-    print(user)
 
     file.write_dict(user_dict)
     data = file.read()
     print(data)
-    print(type(data))
-    print(ast.literal_eval(data))

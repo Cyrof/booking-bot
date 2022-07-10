@@ -8,3 +8,6 @@ r = requests.get(url)
 
 soup = BeautifulSoup(r.content, 'html')
 print(soup.prettify())
+
+def user():
+    pass
